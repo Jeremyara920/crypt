@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title>Trader Book</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <style type="text/css">
+   
+   /* Google Font Link */
+@import url(‘https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap’);
+*{
+  Margin: 0;
+  Padding: 0;
+  Box-sizing: border-box;
+  Font-family: “Poppins” , sans-serif;
+}
+.sidebar{
+  Position: fixed;
+  Left: 0;
+  Top: 0;
+  Height: 100%;
+  Width: 78px;
+  Background: #00008b;
+  Padding: 6px 14px;
+  z-index: 99;
+  transition: all 0.5s ease;
+}
+.sidebar.open{
+  Width: 250px;
+}
+.sidebar .logo-details{
+  Height: 60px;
+  Display: flex;
+  Align-items: center;
+  Position: relative;
+}
+.sidebar .logo-details .icon{
+  Opacity: 0;
+  Transition: all 0.5s ease;
+}
+.sidebar .logo-details .logo_name{
+  Color: #fff;
+  Font-size: 20px;
+  Font-weight: 600;
+  Opacity: 0;
+  Transition: all 0.5s ease;
+}
+.sidebar.open .logo-details .icon,
+.sidebar.open .logo-details .logo_name{
+  Opacity: 1;
+}
+.sidebar .logo-details #btn{
+  Position: absolute;
+  Top: 50%;
+  Right: 0;
+  Transform: translateY(-50%);
+  Font-size: 22px;
+  Transition: all 0.4s ease;
+  Font-size: 23px;
+  Text-align: center;
+  Cursor: pointer;
+  Transition: all 0.5s ease;
+}
+.sidebar.open .logo-details #btn{
+  Text-align: right;
+}
+.sidebar i{
+  Color: #ffffff;
+  Height: 60px;
+  Min-width: 50px;
+  Font-size: 28px;
+  Text-align: center;
+  Line-height: 60px;
+}
+.sidebar .nav-list{
+  Margin-top: 20px;
+  Height: 100%;
+}
+.sidebar li{
+  Position: relative;
+  Margin: 8px 0;
+  List-style: none;
+}
+.sidebar li .tooltip{
+  Position: absolute;
+  Top: -20px;
+  Left: calc(100% + 15px);
+  z-index: 3;
+  background: #00008b;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 15px;
+  font-weight: 400;
+  opacity: 0;
+  white-space: nowrap;
+  pointer-events: none;
+  transition: 0s;
+}
+.sidebar li:hover .tooltip{
+  Opacity: 1;
+  Pointer-events: auto;
+  Transition: all 0.4s ease;
+  Top: 50%;
+  Transform: translateY(-50%);
+}
+.sidebar.open li .tooltip{
+  Display: none;
+}
+.sidebar input{
+  Font-size: 15px;
+  Color: #FFF;
+  Font-weight: 400;
+  Outline: none;
+  Height: 50px;
+  Width: 100%;
+  Width: 50px;
+  Border: none;
+  Border-radius: 12px;
+  Transition: all 0.5s ease;
+  Background: #696969;
+}
+.sidebar.open input{
+  Padding: 0 20px 0 50px;
+  Width: 100%;
+}
+.sidebar .bx-search{
+  Position: absolute;
+  Top: 50%;
+  Left: 0;
+  Transform: translateY(-50%);
+  Font-size: 22px;
+  Background: #ffffff;
+  Color: #000000;
+}
+.sidebar.open .bx-search:hover{
+  Background: #00008b;
+  Color: #FFF;
+}
+.sidebar .bx-search:hover{
+  Background: #00008b;
+  Color: #11101d;
+}
+.sidebar li a{
+  Display: flex;
+  Height: 100%;
+  Width: 100%;
+  Border-radius: 12px;
+  Align-items: center;
+  Text-decoration: none;
+  Transition: all 0.4s ease;
+  Background: #00008b;
+}
+.sidebar li a:hover{
+  Background: #00008b;
+  
+}
+.sidebar li a .links_name{
+  Color: #fff;
+  Font-size: 15px;
+  Font-weight: 400;
+  White-space: nowrap;
+  Opacity: 0;
+  Pointer-events: none;
+  Transition: 0.4s;
+}
+.sidebar.open li a .links_name{
+  Opacity: 1;
+  Pointer-events: auto;
+}
+.sidebar li a:hover .links_name,
+.sidebar li a:hover i{
+  Transition: all 0.5s ease;
+  Color: #fff;
+}
+.sidebar li i{
+  Height: 50px;
+  Line-height: 50px;
+  Font-size: 18px;
+  Border-radius: 12px;
+}
+.sidebar li.profile{
+  Position: fixed;
+  Height: 60px;
+  Width: 78px;
+  Left: 0;
+  Bottom: -8px;
+  Padding: 10px 14px;
+  Background: #ffffff;
+  Transition: all 0.5s ease;
+  Overflow: hidden;
+}
+.sidebar.open li.profile{
+  Width: 250px;
+}
+.sidebar li .profile-details{
+  Display: flex;
+  Align-items: center;
+  Flex-wrap: nowrap;
+}
+.sidebar li img{
+  Height: 45px;
+  Width: 45px;
+  Object-fit: cover;
+  Border-radius: 6px;
+  Margin-right: 10px;
+}
+.sidebar li.profile .name,
+.sidebar li.profile .job{
+  Font-size: 15px;
+  Font-weight: 400;
+  Color: #00008b;
+  White-space: nowrap;
+}
+.sidebar li.profile .job{
+  Font-size: 12px;
+}
+.sidebar .profile #log_out{
+  Position: absolute;
+  Top: 50%;
+  Right: 0;
+  Transform: translateY(-50%);
+  Background: #00008b;
+  Width: 100%;
+  Height: 60px;
+  Line-height: 60px;
+  Border-radius: 0px;
+  Transition: all 0.5s ease;
+}
+.sidebar.open .profile #log_out{
+  Width: 50px;
+  Background: none;
+}
+@media (max-width: 420px) {
+  .sidebar li .tooltip{
+    Display: none;
+  }
+}
+.dummy-text{
+  position: absolute;
+  margin-left:60%;
+  top: 200%;
+  z-index: -1;
+  padding: 0 10px;
+  text-align: center;
+  transform: translate(-50%, -50%);
+  color:#fff;
+  
+}
+.dummy-text h2{
+  font-size: 40px;
+  margin: 5px 0;
+}
+ body{
+ background-color:#00008b;
+ } 
+
+ 
+ 
+ 
+ 
+.main{
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url(images/back.jpg);
+  background-position: center;
+  background-size: cover;
+}
+.profile-card{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 400px;
+  width: 100%;
+  border-radius: 25px;
+  padding: 30px;
+  border: 1px solid #ffffff40;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+}
+.image{
+  position: relative;
+  height: 150px;
+  width: 150px;
+}
+.image .profile-pic{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+}
+.data{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 15px;
+}
+.data h2{
+  font-size: 33px;
+  font-weight: 600;
+}
+span{
+  font-size: 18px;
+}
+.row{
+  display: flex;
+  align-items: center;
+  margin-top: 30px;
+}
+.row .info{
+  text-align: center;
+  padding: 0 20px;
+}
+.buttons{
+  display: flex;
+  align-items: center;
+  margin-top: 30px;
+}
+.buttons .btn{
+  color: #fff;
+  text-decoration: none;
+  margin: 0 20px;
+  padding: 8px 25px;
+  border-radius: 25px;
+  font-size: 18px;
+  white-space: nowrap;
+  background: linear-gradient(to left, #B8860B 0%, #B8860B 100%);
+}
+ .buttons .btn1{
+  color: #fff;
+  text-decoration: none;
+  margin: 0 20px;
+  padding: 8px 25px;
+  border-radius: 25px;
+  font-size: 18px;
+  white-space: nowrap;
+  background: linear-gradient(to left, #daa520 0%, #ffd700 100%);
+}
+.buttons .btn2{
+  color: #fff;
+  text-decoration: none;
+  margin: 0 20px;
+  padding: 8px 25px;
+  border-radius: 25px;
+  font-size: 18px;
+  white-space: nowrap;
+  background: linear-gradient(to left, #708090 0%, #fff 100%);
+}
+.buttons .btn3{
+  color: #fff;
+  text-decoration: none;
+  margin: 0 20px;
+  padding: 8px 25px;
+  border-radius: 25px;
+  font-size: 18px;
+  white-space: nowrap;
+  background: linear-gradient(to left, #fff 0%, #b0c4de 100%);
+}
+.buttons .btn:hover{
+  box-shadow: inset 0 5px 20px rgba(0,0,0,0.4);
+}
+ .border{
+  border-radius:10%;
+  margin-right:20%;
+ }
+ .cont{
+ font-size:50px;
+ color:#fff;
+ }
+   </style>
+   </head>
+<body>
+  <div class="sidebar">
+    <div class="logo-details">
+      <I class="bx bxl-c-plus-plus icon"></i>
+        <div class="logo_name">TRADER BOOK</div>
+        <I class="bx bx-menu" id="btn" ></i>
+    </div>
+    <ul class="nav-list">
+      <li>
+        <a href="traderbook1.html">
+          <I class="bx bx-grid-alt"></i>
+          <span class="links_name">HOME</span>
+        </a>
+         <span class="tooltip">HOME</span>
+      </li>
+      <li>
+       <a href="profile.html">
+         <I class="bx bx-user" ></i>
+         <span class="links_name">NEWS</span>
+       </a>
+       <span class="tooltip">NEWS</span>
+     </li>
+     <li>
+       <a href="trade11.html">
+         <I class="bx bx-pie-chart-alt-2" ></i>
+         <span class="links_name">TRADE</span>
+       </a>
+       <span class="tooltip">TRADE</span>
+     </li>
+     <li>
+       <a href="order.html">
+         <I class="bx bx-cart-alt" ></i>
+         <span class="links_name">ORDER</span>
+       </a>
+       <span class="tooltip">ORDER</span>
+     </li>
+     <li class="profile">
+         <div class="profile-details">
+           <img src="fx1.jpeg" alt="profileImg">
+           <div class="name_job">
+             <div class="name">USER</div>
+             <div class="job">WELCOME</div>
+           </div>
+         </div>
+         <I class="bx bx-log-out" id="log_out" ></i>
+     </li>
+    </ul>
+  </div>
+  
+  <center>  
+     	 
+<div class="dummy-text">
+     
+	 <br>
+	 <br>
+	 <br>
+	 <br>
+	 <br>
+	 <br>
+	 <br>
+	 <br>
+	 <br>
+	 <br>
+	 <br>
+	 <br>
+	 <br>
+	 <br>
+	 <br>
+	 <br>
+	 <br>
+	 <br>
+	 <br>
+	 <br>
+	 <br>
+	 <br>
+	 <br>
+	 <br>
+	 <br>
+	 <br>
+	 <header class="cont">Awesome Plans To Invest Into</header>
+	 <br>
+	 <br>
+	 <br>
+	 <br>
+<section class="main">
+  <div class="profile-card">
+    <div class="image">
+    </div>
+    <div class="data">
+      <h2>BRONZE PLAN</h2>
+      <span>$50--$100</span>
+    </div>
+    <div class="row">
+      <div class="info">
+        <h3>Current Investors</h3>
+        <span>13,208</span>
+      </div>
+      <div class="info">
+        <h3>Totals Investors</h3>
+        <span>20,951</span>
+      </div>
+    </div>
+    <div class="buttons">
+      <a href="invest1.html" class="btn">Start</a>
+    </div>
+  </div>
+</section>
+  
+  <section class="main">
+  <div class="profile-card">
+    <div class="image">
+    </div>
+    <div class="data">
+      <h2>GOLD PACK</h2>
+      <span>$102--$200</span>
+    </div>
+    <div class="row">
+      <div class="info">
+        <h3>Current Investors</h3>
+        <span>4,245</span>
+      </div>
+      <div class="info">
+        <h3>Totals Investors</h3>
+        <span>10,021</span>
+      </div>
+    </div>
+    <div class="buttons">
+      <a href="signals1.html" class="btn1">Start</a>
+    </div>
+  </div>
+</section>
+
+<section class="main">
+  <div class="profile-card">
+    <div class="image">
+    </div>
+    <div class="data">
+      <h2>SILVER PACK</h2>
+      <span>$210--$550</span>
+    </div>
+    <div class="row">
+      <div class="info">
+        <h3>Current Investors</h3>
+        <span>124</span>
+      </div>
+      <div class="info">
+        <h3>Totals Investors</h3>
+        <span>625</span>
+      </div>
+    </div>
+    <div class="buttons">
+      <a href="learn1.html" class="btn2">Start</a>
+    </div>
+  </div>
+</section>
+
+<section class="main">
+  <div class="profile-card">
+    <div class="image">
+    </div>
+    <div class="data">
+      <h2>DAIMOND PACK</h2>
+      <span>$500--$1000</span>
+    </div>
+    <div class="row">
+      <div class="info">
+        <h3>Current Investors</h3>
+        <span>10</span>
+      </div>
+      <div class="info">
+        <h3>Totals Investors</h3>
+        <span>45</span>
+      </div>
+    </div>
+    <div class="buttons">
+      <a href="experts1.html" class="btn3">Start</a>
+    </div>
+  </div>
+</section>
+  
+	 
+    </div>
+	</div>
+    
+	
+
+  <script>
+  Let sidebar = document.querySelector(“.sidebar”);
+  Let closeBtn = document.querySelector(“#btn”);
+  Let searchBtn = document.querySelector(“.bx-search”);
+
+  closeBtn.addEventListener(“click”, ()=>{
+    sidebar.classList.toggle(“open”);
+    menuBtnChange();//calling the function(optional)
+  });
+
+  searchBtn.addEventListener(“click”, ()=>{ // Sidebar open when you click on the search iocn
+    sidebar.classList.toggle(“open”);
+    menuBtnChange(); //calling the function(optional)
+  });
+
+  // following are the code to change sidebar button(optional)
+  Function menuBtnChange() {
+   If(sidebar.classList.contains(“open”)){
+     closeBtn.classList.replace(“bx-menu”, “bx-menu-alt-right”);//replacing the iocns class
+   }else {
+     closeBtn.classList.replace(“bx-menu-alt-right”,”bx-menu”);//replacing the iocns class
+   }
+  }
+  </script>
+</body>
+</html>

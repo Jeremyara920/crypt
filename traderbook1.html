@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title>Trader Book</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <style type="text/css">
+   
+   /* Google Font Link */
+@import url(‘https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap’);
+*{
+  Margin: 0;
+  Padding: 0;
+  Box-sizing: border-box;
+  Font-family: “Poppins” , sans-serif;
+}
+.sidebar{
+  Position: fixed;
+  Left: 0;
+  Top: 0;
+  Height: 100%;
+  Width: 78px;
+  Background: #00008b;
+  Padding: 6px 14px;
+  z-index: 99;
+  transition: all 0.5s ease;
+}
+.sidebar.open{
+  Width: 250px;
+}
+.sidebar .logo-details{
+  Height: 60px;
+  Display: flex;
+  Align-items: center;
+  Position: relative;
+}
+.sidebar .logo-details .icon{
+  Opacity: 0;
+  Transition: all 0.5s ease;
+}
+.sidebar .logo-details .logo_name{
+  Color: #fff;
+  Font-size: 20px;
+  Font-weight: 600;
+  Opacity: 0;
+  Transition: all 0.5s ease;
+}
+.sidebar.open .logo-details .icon,
+.sidebar.open .logo-details .logo_name{
+  Opacity: 1;
+}
+.sidebar .logo-details #btn{
+  Position: absolute;
+  Top: 50%;
+  Right: 0;
+  Transform: translateY(-50%);
+  Font-size: 22px;
+  Transition: all 0.4s ease;
+  Font-size: 23px;
+  Text-align: center;
+  Cursor: pointer;
+  Transition: all 0.5s ease;
+}
+.sidebar.open .logo-details #btn{
+  Text-align: right;
+}
+.sidebar i{
+  Color: #ffffff;
+  Height: 60px;
+  Min-width: 50px;
+  Font-size: 28px;
+  Text-align: center;
+  Line-height: 60px;
+}
+.sidebar .nav-list{
+  Margin-top: 20px;
+  Height: 100%;
+}
+.sidebar li{
+  Position: relative;
+  Margin: 8px 0;
+  List-style: none;
+}
+.sidebar li .tooltip{
+  Position: absolute;
+  Top: -20px;
+  Left: calc(100% + 15px);
+  z-index: 3;
+  background: #00008b;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 15px;
+  font-weight: 400;
+  opacity: 0;
+  white-space: nowrap;
+  pointer-events: none;
+  transition: 0s;
+}
+.sidebar li:hover .tooltip{
+  Opacity: 1;
+  Pointer-events: auto;
+  Transition: all 0.4s ease;
+  Top: 50%;
+  Transform: translateY(-50%);
+}
+.sidebar.open li .tooltip{
+  Display: none;
+}
+.sidebar input{
+  Font-size: 15px;
+  Color: #FFF;
+  Font-weight: 400;
+  Outline: none;
+  Height: 50px;
+  Width: 100%;
+  Width: 50px;
+  Border: none;
+  Border-radius: 12px;
+  Transition: all 0.5s ease;
+  Background: #696969;
+}
+.sidebar.open input{
+  Padding: 0 20px 0 50px;
+  Width: 100%;
+}
+.sidebar .bx-search{
+  Position: absolute;
+  Top: 50%;
+  Left: 0;
+  Transform: translateY(-50%);
+  Font-size: 22px;
+  Background: #ffffff;
+  Color: #000000;
+}
+.sidebar.open .bx-search:hover{
+  Background: #00008b;
+  Color: #FFF;
+}
+.sidebar .bx-search:hover{
+  Background: #00008b;
+  Color: #11101d;
+}
+.sidebar li a{
+  Display: flex;
+  Height: 100%;
+  Width: 100%;
+  Border-radius: 12px;
+  Align-items: center;
+  Text-decoration: none;
+  Transition: all 0.4s ease;
+  Background: #00008b;
+}
+.sidebar li a:hover{
+  Background: #00008b;
+  
+}
+.sidebar li a .links_name{
+  Color: #fff;
+  Font-size: 15px;
+  Font-weight: 400;
+  White-space: nowrap;
+  Opacity: 0;
+  Pointer-events: none;
+  Transition: 0.4s;
+}
+.sidebar.open li a .links_name{
+  Opacity: 1;
+  Pointer-events: auto;
+}
+.sidebar li a:hover .links_name,
+.sidebar li a:hover i{
+  Transition: all 0.5s ease;
+  Color: #fff;
+}
+.sidebar li i{
+  Height: 50px;
+  Line-height: 50px;
+  Font-size: 18px;
+  Border-radius: 12px;
+}
+.sidebar li.profile{
+  Position: fixed;
+  Height: 60px;
+  Width: 78px;
+  Left: 0;
+  Bottom: -8px;
+  Padding: 10px 14px;
+  Background: #ffffff;
+  Transition: all 0.5s ease;
+  Overflow: hidden;
+}
+.sidebar.open li.profile{
+  Width: 250px;
+}
+.sidebar li .profile-details{
+  Display: flex;
+  Align-items: center;
+  Flex-wrap: nowrap;
+}
+.sidebar li img{
+  Height: 45px;
+  Width: 45px;
+  Object-fit: cover;
+  Border-radius: 6px;
+  Margin-right: 10px;
+}
+.sidebar li.profile .name,
+.sidebar li.profile .job{
+  Font-size: 15px;
+  Font-weight: 400;
+  Color: #00008b;
+  White-space: nowrap;
+}
+.sidebar li.profile .job{
+  Font-size: 12px;
+}
+.sidebar .profile #log_out{
+  Position: absolute;
+  Top: 50%;
+  Right: 0;
+  Transform: translateY(-50%);
+  Background: #00008b;
+  Width: 100%;
+  Height: 60px;
+  Line-height: 60px;
+  Border-radius: 0px;
+  Transition: all 0.5s ease;
+}
+.sidebar.open .profile #log_out{
+  Width: 50px;
+  Background: none;
+}
+@media (max-width: 420px) {
+  .sidebar li .tooltip{
+    Display: none;
+  }
+}
+.dummy-text{
+  position: absolute;
+  margin-left:60%;
+  top: 160%;
+  z-index: -1;
+  padding: 0 10px;
+  text-align: center;
+  transform: translate(-50%, -50%);
+  color:#fff;
+  
+}
+.dummy-text h2{
+  font-size: 40px;
+  margin: 5px 0;
+}
+ body{
+ background-color:#00008b;
+ } 
+ .btn11{
+  padding:2%;
+  background-color:#ffffff;
+  Border-radius:10px;
+ }
+ .contact{
+  Padding:10%;
+  width:100%;
+  height:70%;
+  color:#fff;
+  background-color:#000;
+ }
+ .header{
+ font-size:40px;
+ font-weight:50%;
+ }
+   </style>
+   </head>
+<body>
+  <div class="sidebar">
+    <div class="logo-details">
+      <I class="bx bxl-c-plus-plus icon"></i>
+        <div class="logo_name">TRADER BOOK</div>
+        <I class="bx bx-menu" id="btn" ></i>
+    </div>
+    <ul class="nav-list">
+      <li>
+        <a href="traderbook1.html">
+          <I class="bx bx-grid-alt"></i>
+          <span class="links_name">HOME</span>
+        </a>
+         <span class="tooltip">HOME</span>
+      </li>
+      <li>
+       <a href="profile.html">
+         <I class="bx bx-user" ></i>
+         <span class="links_name">NEWS</span>
+       </a>
+       <span class="tooltip">NEWS</span>
+     </li>
+     <li>
+       <a href="trade11.html">
+         <I class="bx bx-pie-chart-alt-2" ></i>
+         <span class="links_name">TRADE</span>
+       </a>
+       <span class="tooltip">TRADE</span>
+     </li>
+     <li>
+       <a href="order.html">
+         <I class="bx bx-cart-alt" ></i>
+         <span class="links_name">ORDER</span>
+       </a>
+       <span class="tooltip">ORDER</span>
+     </li>
+     <li class="profile">
+         <div class="profile-details">
+           <img src="fx1.jpeg" alt="profileImg">
+           <div class="name_job">
+             <div class="name">USER</div>
+             <div class="job">WELCOME</div>
+           </div>
+         </div>
+         <I class="bx bx-log-out" id="log_out" ></i>
+     </li>
+    </ul>
+  </div>
+  
+  <center>  
+      
+<div class="dummy-text">
+<h2>Lets Make This Money Together</h2>
+    <br>
+   <br>	
+	<div class="buttons">
+        <a href="trade11.html"><button class="btn11">LETS START</button></a>
+      </div>
+	<br>
+    <br>
+    <br>
+   <div class="text-content">
+      <h2>Get Signals And Learn Everything About,<br>Forex,Crypto,Binary And Lots More</h2>
+      <p> With just a click you can learn,everything about 
+	  <br>forex,cryptocurrencies,binary stocks and more. 
+	  <br>subscribe for a premium plan to keep you updated 
+	  <br>with 80% accurate daily signals,of different 
+	  <br>instruments from different trade masters</p>
+     
+	    <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+
+	 
+	 <h2>About Us</h2>
+	<h4>
+ <font color="800000">INVEST</font>: Trader Book is a profitable and Trusted trading firm,established by a strong team of highly skilled traders 
+<br>
+and investment consultants in the offline and online investment market. We put your investments 
+<br>
+in new highly remunerative innovative projects, which offers great returns along. 
+<br>
+Today our company has a professional team to develop a business. We know how much, where and when to put your investments.
+<br>
+ And we know how to achieve maximum income. We are constantly diversifying our investment portfolio and building stronger connections globally.
+ 
+Even if an opportunity fails, you can count on our strategy of diversification continues to keep our business profitable and growing.
+<br>
+ You have the opportunity right now to join a revolutionary investing opportunity that is sure to continue growing and mature
+<br>
+into the most successful high yield opportunity today. Our Support Department is at your disposal 24 hours a day, 7 days a week
+<br>
+All you need to do is to make a deposit using your most convenient payment method, and get in from time to time to be able to withdraw your returns on investment.
+<br>
+ <font color="800000">LEARN</font>: Trader Book offers a very reliable platform to learn and study everything about 
+ <br>
+ Forex,Crypto,Binary And Lots More
+  <br>
+  <font color="800000">SIGNALS</font>: Get 80% accurate signal from different trade experts,
+  <br>
+  of different instruments,on forex,binary,crypto and lots more  
+	</h4>
+     
+
+    <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+	 
+     
+	 <div class="contact">
+	 <header class="header">contact us</header>
+	 <i  class="fas fa-telegram"></i>
+	 
+	
+	 </div>
+	 
+	 
+	 
+    </div>
+	</div>
+    
+	
+
+  <script>
+  Let sidebar = document.querySelector(“.sidebar”);
+  Let closeBtn = document.querySelector(“#btn”);
+  Let searchBtn = document.querySelector(“.bx-search”);
+
+  closeBtn.addEventListener(“click”, ()=>{
+    sidebar.classList.toggle(“open”);
+    menuBtnChange();//calling the function(optional)
+  });
+
+  searchBtn.addEventListener(“click”, ()=>{ // Sidebar open when you click on the search iocn
+    sidebar.classList.toggle(“open”);
+    menuBtnChange(); //calling the function(optional)
+  });
+
+  // following are the code to change sidebar button(optional)
+  Function menuBtnChange() {
+   If(sidebar.classList.contains(“open”)){
+     closeBtn.classList.replace(“bx-menu”, “bx-menu-alt-right”);//replacing the iocns class
+   }else {
+     closeBtn.classList.replace(“bx-menu-alt-right”,”bx-menu”);//replacing the iocns class
+   }
+  }
+  </script>
+</body>
+</html>
